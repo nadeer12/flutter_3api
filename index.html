@@ -102,9 +102,11 @@
 
         <h2>Currency Data:</h2>
         <pre id="currencyData"></pre>
+        <br>
 
         <h2>User Data:</h2>
         <pre id="userData"></pre>
+        <br>
 
         <h2>Item Data:</h2>
         <pre id="itemData"></pre>
@@ -117,30 +119,25 @@
     <script>
 
 
-       function sendApiUrl() {
-        // Update API URLs
-        var apiUrls = [
-            "http://eademoapi.linkwayapps.com/api/currency",
+          function sendApiUrl(index) {
+        var apiUrl = [
+            "http://eademoapi.linkwayapps.com/api/currecny",
             "http://eademoapi.linkwayapps.com/api/user",
             "http://eademoapi.linkwayapps.com/api/item"
-        ];
+        ][index];
 
         if (window.flutter) {
-            apiUrls.forEach(function (url) {
-                window.flutter.postMessage(url);
-            });
+            window.flutter.postMessage(index);
         } else {
             console.error('Flutter channel not available');
-            }
         }
-
-    function displayApiData(apiData) {
-        // Update pre boxes with API data
-        document.getElementById('currencyData').innerText = JSON.stringify(apiData[0], null, 2);
-        document.getElementById('userData').innerText = JSON.stringify(apiData[1], null, 2);
-        document.getElementById('itemData').innerText = JSON.stringify(apiData[2], null, 2);
     }
 
+    // Modify the displayApiData function to handle different pre boxes
+    function displayApiData(index, apiData) {
+        var preId = ["currencyData", "userData", "itemData"][index];
+        document.getElementById(preId).innerText = JSON.stringify(apiData, null, 2);
+    }
         
 
     </script>
