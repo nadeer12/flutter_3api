@@ -95,14 +95,21 @@
 
         <label for="apiUrl">Enter API URL:</label>
         <br>
-        <input type="url" id="apiUrl" placeholder="Enter API URL">
-        <br>
+        
+        
         
         <button onclick="sendApiUrl()">GET Data</button>
 
-        <h2>API Data:</h2>
-        <pre id="apiData"></pre>
+        <h2>Currency Data:</h2>
+        <pre id="currencyData"></pre>
+
+        <h2>User Data:</h2>
+        <pre id="userData"></pre>
+
+        <h2>Item Data:</h2>
+        <pre id="itemData"></pre>
         <br>
+
 
         
     </div>
@@ -110,20 +117,29 @@
     <script>
 
 
-        function sendApiUrl() {
-            var apiUrl = document.getElementById('apiUrl').value;
-            if (window.flutter) {
-                window.flutter.postMessage(apiUrl);
-            } else {
-                console.error('Flutter channel not available');
+       function sendApiUrl() {
+        // Update API URLs
+        var apiUrls = [
+            "http://eademoapi.linkwayapps.com/api/currency",
+            "http://eademoapi.linkwayapps.com/api/user",
+            "http://eademoapi.linkwayapps.com/api/item"
+        ];
+
+        if (window.flutter) {
+            apiUrls.forEach(function (url) {
+                window.flutter.postMessage(url);
+            });
+        } else {
+            console.error('Flutter channel not available');
             }
         }
 
-        function displayApiData(apiUrl, apiData) {
-            document.getElementById('apiUrl').value = apiUrl;
-            document.getElementById('apiData').innerText = JSON.stringify(apiData, null, 2);
-           
-        }
+    function displayApiData(apiData) {
+        // Update pre boxes with API data
+        document.getElementById('currencyData').innerText = JSON.stringify(apiData[0], null, 2);
+        document.getElementById('userData').innerText = JSON.stringify(apiData[1], null, 2);
+        document.getElementById('itemData').innerText = JSON.stringify(apiData[2], null, 2);
+    }
 
         
 
