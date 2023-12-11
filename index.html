@@ -8,36 +8,24 @@
 <body>
     <h1>API Data Display</h1>
 
-    <button onclick="getData()">Get Data</button>
+    <button onclick="getApiData()">Get Data</button>
 
     <div id="result"></div>
 
     <script>
-        async function getData() {
-            const apiUrls = [
-                "http://eademoapi.linkwayapps.com/api/currency",
-                "http://eademoapi.linkwayapps.com/api/user",
-                "http://eademoapi.linkwayapps.com/api/item"
-            ];
+        function getApiData() {
+            // Call the Flutter function with the API URLs
+            ApiData.postMessage('http://eademoapi.linkwayapps.com/api/currency');
+            ApiData.postMessage('http://eademoapi.linkwayapps.com/api/user');
+            ApiData.postMessage('http://eademoapi.linkwayapps.com/api/item');
+        }
 
+        function displayApiData(data) {
+            // Display the received API data
             const resultContainer = document.getElementById('result');
-            resultContainer.innerHTML = ''; // Clear previous results
-
-            for (const apiUrl of apiUrls) {
-                try {
-                    const response = await fetch(apiUrl);
-                    const data = await response.json();
-
-                    // Display data in the result container
-                    const dataDisplay = document.createElement('pre');
-                    dataDisplay.textContent = JSON.stringify(data, null, 2);
-                    resultContainer.appendChild(dataDisplay);
-                } catch (error) {
-                    console.error(`Error fetching data from ${apiUrl}:`, error);
-                    resultContainer.innerHTML = 'Error fetching data. Please try again.';
-                    break; // Stop further requests on error
-                }
-            }
+            const dataDisplay = document.createElement('pre');
+            dataDisplay.textContent = data;
+            resultContainer.appendChild(dataDisplay);
         }
     </script>
 </body>
