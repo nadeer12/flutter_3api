@@ -88,44 +88,46 @@
     <div class="content">
         <h1>API WebView Example</h1>
 
-        <button onclick="getData()">GET Data</button>
+  <button onclick="sendApiUrl()">GET Data</button>
 
-        <h2>API Data:</h2>
-        <label for="currency">Currency:</label>
-        <pre id="currency"></pre>
-        <br>
+  <h2>API Data:</h2>
+  <label for="currency">Currency:</label>
+  <pre id="currencyData"></pre>
 
-        <label for="user">User:</label>
-        <pre id="user"></pre>
-        <br>
+  <label for="user">User:</label>
+  <pre id="userData"></pre>
 
-        <label for="item">Item:</label>
-        <pre id="item"></pre>
-        <br>
-    </div>
+  <label for="item">Item:</label>
+  <pre id="itemData"></pre>
 
-    <script>
-        function getData() {
-            fetchApiData("http://eademoapi.linkwayapps.com/api/currency", "currency");
-            fetchApiData("http://eademoapi.linkwayapps.com/api/user", "user");
-            fetchApiData("http://eademoapi.linkwayapps.com/api/item", "item");
-        }
+  <br>
+</div>
 
-        function fetchApiData(apiUrl, id) {
-            if (window.flutter) {
-                window.flutter.postMessage(apiUrl);
-                window.flutter.subscribeToMessageChannel(id, (apiData) => {
-                    displayApiData(id, JSON.stringify(apiData, null, 2));
-                });
-            } else {
-                console.error('Flutter channel not available');
-            }
-        }
+<script>
+  // ... (existing JavaScript code)
 
-        function displayApiData(id, apiData) {
-            document.getElementById(id).innerText = apiData;
-        }
-    </script>
+  function sendApiUrl(apiUrl) {
+    if (window.flutter) {
+      window.flutter.postMessage(apiUrl);
+    } else {
+      console.error('Flutter channel not available');
+    }
+  }
+
+  function displayApiData(apiUrl, apiData) {
+    switch (apiUrl) {
+      case 'http://eademoapi.linkwayapps.com/api/currecny':
+        document.getElementById('currencyData').innerText = JSON.stringify(apiData, null, 2);
+        break;
+      case 'http://eademoapi.linkwayapps.com/api/user':
+        document.getElementById('userData').innerText = JSON.stringify(apiData, null, 2);
+        break;
+      case 'http://eademoapi.linkwayapps.com/api/item':
+        document.getElementById('itemData').innerText = JSON.stringify(apiData, null, 2);
+        break;
+    }
+  }
+</script>
 
 </body>
 
