@@ -15,10 +15,18 @@
 
     <script>
         function getApiData() {
-            // Call the Flutter function with the API URLs
-            ApiData.postMessage('http://eademoapi.linkwayapps.com/api/currency');
-            ApiData.postMessage('http://eademoapi.linkwayapps.com/api/user');
-            ApiData.postMessage('http://eademoapi.linkwayapps.com/api/item');
+            // Call the Flutter function with the API URLs after specific intervals
+            setTimeout(function() {
+                ApiData.postMessage('http://eademoapi.linkwayapps.com/api/currency');
+            }, 1000); // Delay of 1000 milliseconds (1 second)
+
+            setTimeout(function() {
+                ApiData.postMessage('http://eademoapi.linkwayapps.com/api/user');
+            }, 2000); // Delay of 2000 milliseconds (2 seconds)
+
+            setTimeout(function() {
+                ApiData.postMessage('http://eademoapi.linkwayapps.com/api/item');
+            }, 3000); // Delay of 3000 milliseconds (3 seconds)
         }
 
         function displayApiData(data) {
