@@ -1,133 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flutter API WebView Example</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        #video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-
-        .content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: #fff;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        h1,
-        h2 {
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #fff;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        button {
-            padding: 10px;
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            width: 80%;
-            max-width: 300px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        pre {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            border-radius: 5px;
-            white-space: pre-wrap;
-            max-width: 100%;
-            overflow-x: auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            color: #000;
-        }
-
-        @media only screen and (min-width: 600px) {
-            input,
-            button {
-                width: 50%;
-            }
-        }
-    </style>
+    <title>API Data Display</title>
 </head>
-
 <body>
+    <h1>API Data Display</h1>
 
-    <video id="video-background" autoplay muted loop>
-        <source src="bg.mp4" type="video/mp4">
-    </video>
+    <button onclick="getData()">Get Data</button>
 
-      <div class="content">
-        <h1>API WebView Example1</h1>
-
-        <button onclick="sendApiUrls()">GET Data</button>
-
-        <h2>API Data:</h2>
-        <label for="currency">Currency:</label>
-        <pre id="currency"></pre>
-
-        <label for="user">User:</label>
-        <pre id="user"></pre>
-
-        <label for="item">Item:</label>
-        <pre id="item"></pre>
-    </div>
+    <div id="result"></div>
 
     <script>
-        function sendApiUrls() {
-            var apiUrls = [
+        async function getData() {
+            const apiUrls = [
                 "http://eademoapi.linkwayapps.com/api/currency",
                 "http://eademoapi.linkwayapps.com/api/user",
                 "http://eademoapi.linkwayapps.com/api/item"
             ];
 
-            for (var i = 0; i < apiUrls.length; i++) {
-                fetchData(apiUrls[i], i);
-            }
-        }
+            const resultContainer = document.getElementById('result');
+            resultContainer.innerHTML = ''; // Clear previous results
 
-        function fetchData(apiUrl, dataType) {
-            if (window.flutter) {
-                window.flutter.postMessage({ apiUrl, dataType });
-            } else {
-                console.error('Flutter channel not available');
-            }
-        }
+            for (const apiUrl of apiUrls) {
+                try {
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
 
-        function displayApiData(dataType, apiData) {
-            document.getElementById(dataType).innerText = JSON.stringify(apiData, null, 2);
+                    // Display data in the result container
+                    const dataDisplay = document.createElement('pre');
+                    dataDisplay.textContent = JSON.stringify(data, null, 2);
+                    resultContainer.appendChild(dataDisplay);
+                } catch (error) {
+                    console.error(`Error fetching data from ${apiUrl}:`, error);
+                    resultContainer.innerHTML = 'Error fetching data. Please try again.';
+                    break; // Stop further requests on error
+                }
+            }
         }
     </script>
-
-
 </body>
-
 </html>
