@@ -4,43 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Data Display</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 20px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        button {
-            margin: 10px;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-
-        #result {
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            white-space: pre-wrap;
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
     <h1>API Data Display</h1>
 
-    <button onclick="getApiData()">Get Data</button>
+    <button onclick="getApiData()">Get Datas</button>
     <button onclick="clearResult()">Clear</button>
 
     <div id="result"></div>
@@ -50,11 +18,11 @@
             // Call the Flutter function with the API URLs after specific intervals
             setTimeout(function() {
                 ApiData.postMessage('http://eademoapi.linkwayapps.com/api/currency');
-            }, 1000); // Delay of 1000 milliseconds (1 second)
+            }, 3000); // Delay of 1000 milliseconds (1 second)
 
             setTimeout(function() {
                 ApiData.postMessage('http://eademoapi.linkwayapps.com/api/user');
-            }, 2000); // Delay of 2000 milliseconds (2 seconds)
+            }, 3000); // Delay of 2000 milliseconds (2 seconds)
 
             setTimeout(function() {
                 ApiData.postMessage('http://eademoapi.linkwayapps.com/api/item');
@@ -66,7 +34,6 @@
             const resultContainer = document.getElementById('result');
             const dataDisplay = document.createElement('pre');
             dataDisplay.textContent = JSON.stringify(data, null, 2);
-            resultContainer.innerHTML = '';
             resultContainer.appendChild(dataDisplay);
         }
 
@@ -75,7 +42,6 @@
             const resultContainer = document.getElementById('result');
             const errorDisplay = document.createElement('p');
             errorDisplay.textContent = error;
-            resultContainer.innerHTML = '';
             resultContainer.appendChild(errorDisplay);
         }
 
