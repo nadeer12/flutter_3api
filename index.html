@@ -10,10 +10,15 @@
             margin: 20px;
             padding: 20px;
             background-color: #f0f0f0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
 
         h1 {
             color: #333;
+            width: 100%;
+            text-align: center;
         }
 
         button {
@@ -34,6 +39,17 @@
             border-radius: 8px;
             padding: 15px;
             margin-top: 20px;
+            width: calc(33.33% - 20px);
+            box-sizing: border-box;
+        }
+
+        #user {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #item {
+            width: 100%;
         }
 
         h2 {
