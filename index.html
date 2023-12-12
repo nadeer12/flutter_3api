@@ -11,7 +11,9 @@
     <button onclick="getApiData()">Get Data</button>
     <button onclick="clearResult()">Clear</button>
 
-    <div id="result"></div>
+    <div id="currency" class="frame"></div>
+    <div id="user" class="frame"></div>
+    <div id="item" class="frame"></div>
 
     <script>
         function getApiData() {
@@ -29,46 +31,30 @@
             }, 10000); // Delay of 3000 milliseconds (3 seconds)
         }
 
-        function displayApiData(data) {
-            // Display the received API data
-            const resultContainer = document.getElementById('result');
+        function displayApiData(data, frameId) {
+            // Display the received API data in the specified frame
+            const resultContainer = document.getElementById(frameId);
             const dataDisplay = document.createElement('pre');
             dataDisplay.textContent = JSON.stringify(data, null, 2);
             resultContainer.appendChild(dataDisplay);
         }
 
-        function displayApiError(error) {
-            // Display the error message
-            const resultContainer = document.getElementById('result');
+        function displayApiError(error, frameId) {
+            // Display the error message in the specified frame
+            const resultContainer = document.getElementById(frameId);
             const errorDisplay = document.createElement('p');
             errorDisplay.textContent = error;
             resultContainer.appendChild(errorDisplay);
         }
 
-
-        function fetchCurrencyDetails(currencySymbol) {
-            // Fetch additional details for the first currency
-            const apiUrl = `http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${currencySymbol}`;
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(currencyDetails => {
-                    // Display the additional details for the first currency
-                    const detailsDisplay = document.createElement('pre');
-                    detailsDisplay.textContent = JSON.stringify(currencyDetails, null, 2);
-                    resultContainer.appendChild(detailsDisplay);
-                })
-                .catch(error => {
-                    console.error('Error fetching currency details:', error);
-                    resultContainer.appendChild(document.createTextNode('Error fetching currency details.'));
-                });
-        }
-        
-
         function clearResult() {
-            // Clear the result container
-            const resultContainer = document.getElementById('result');
-            resultContainer.innerHTML = '';
+            // Clear the result containers for each frame
+            const frames = document.querySelectorAll('.frame');
+            frames.forEach(frame => {
+                frame.innerHTML = '';
+            });
         }
     </script>
 </body>
 </html>
+
