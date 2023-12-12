@@ -237,3 +237,68 @@
     </script>
 </body>
 </html>
+------------------------------------------------------------------------------------------------------------------------------API data Frame----------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data Display1</title>
+</head>
+<body>
+  <h1>API Data Display</h1>
+
+  <button onclick="getApiData()">Get Data</button>
+
+  <div id="currency">
+    <h2>Currency Data</h2>
+    <div id="currencyResult"></div>
+  </div>
+
+  <div id="user">
+    <h2>User Data</h2>
+    <div id="userResult"></div>
+  </div>
+
+  <div id="item">
+    <h2>Item Data</h2>
+    <div id="itemResult"></div>
+  </div>
+
+  <script>
+    function getApiData() {
+      setTimeout(function () {
+        window['ApiData_currency'].postMessage('http://eademoapi.linkwayapps.com/api/currency');
+      }, 3000);
+
+      setTimeout(function () {
+        window['ApiData_user'].postMessage('http://eademoapi.linkwayapps.com/api/user');
+      }, 9000);
+
+      setTimeout(function () {
+        window['ApiData_item'].postMessage('http://eademoapi.linkwayapps.com/api/item');
+      }, 10000);
+    }
+
+    function displayApiData(data, apiType) {
+      const resultContainer = document.getElementById(apiType + 'Result');
+      const dataDisplay = document.createElement('pre');
+      dataDisplay.textContent = JSON.stringify(data, null, 2);
+      resultContainer.appendChild(dataDisplay);
+    }
+
+    function displayApiError(error) {
+      const resultContainer = document.getElementById('result');
+      const errorDisplay = document.createElement('p');
+      errorDisplay.textContent = error;
+      resultContainer.appendChild(errorDisplay);
+    }
+
+    function clearResult() {
+      const resultContainer = document.getElementById('result');
+      resultContainer.innerHTML = '';
+    }
+  </script>
+</body>
+</html>
+
