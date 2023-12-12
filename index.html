@@ -114,27 +114,29 @@
         }
 
         function displayCurrencyDetails() {
-            const currencyList = window['ApiData_currency'].getData(); // Assuming you have a method to get the currency list
-            if (currencyList && currencyList.length > 0) {
-                const firstCurrencySymbol = currencyList[0];
-                const apiUrl = `http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${firstCurrencySymbol}`;
+    const currencyList = window['ApiData_currency'] ? window['ApiData_currency'].getData() : null;
 
-                fetch(apiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        const resultContainer = document.getElementById('currencyDetailsResult');
-                        const dataDisplay = document.createElement('pre');
-                        dataDisplay.textContent = JSON.stringify(data, null, 2);
-                        resultContainer.innerHTML = ''; // Clear previous results
-                        resultContainer.appendChild(dataDisplay);
-                    })
-                    .catch(error => {
-                        displayApiError('Error fetching currency details: ' + error);
-                    });
-            } else {
-                displayApiError('Currency list is empty.');
-            }
-        }
+    if (currencyList && currencyList.length > 0) {
+        const firstCurrencySymbol = currencyList[0];
+        const apiUrl = `http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${firstCurrencySymbol}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const resultContainer = document.getElementById('currencyDetailsResult');
+                const dataDisplay = document.createElement('pre');
+                dataDisplay.textContent = JSON.stringify(data, null, 2);
+                resultContainer.innerHTML = ''; // Clear previous results
+                resultContainer.appendChild(dataDisplay);
+            })
+            .catch(error => {
+                displayApiError('Error fetching currency details: ' + error);
+            });
+    } else {
+        displayApiError('Currency list is empty or ApiData_currency object is not available.');
+    }
+}
+
 
         function displayApiData(data, apiType) {
             const resultContainer = document.getElementById(apiType + 'Result');
