@@ -66,7 +66,7 @@
     </style>
 </head>
 <body>
-    <h1>--API Data Display</h1>
+    <h1>--API Data Display--</h1>
 
     <button onclick="getApiData()">Get Data</button>
     <button onclick="clearResult()">Clear</button>
@@ -104,19 +104,13 @@
             }, 9000);
 
             setTimeout(function () {
-                window['ApiData_currency'].postMessage('http://eademoapi.linkwayapps.com/api/currency');
+                // Assuming ApiData_currency has a method getData to retrieve the currency list
+                const currencyList = window['ApiData_currency'].getData();
+                displayCurrencyDetails(currencyList);
             }, 10000);
-
-            // Fetch details of the first element in the currency list
-            setTimeout(function () {
-                displayCurrencyDetails();
-            }, 12000);
         }
 
-        function displayCurrencyDetails() {
-            // Assuming window['ApiData_currency'] has a method named 'getData' to retrieve the currency list
-            const currencyList = window['ApiData_currency'].getData();
-
+        function displayCurrencyDetails(currencyList) {
             if (currencyList && currencyList.length > 0) {
                 const firstCurrencySymbol = currencyList[0];
                 const apiUrl = `http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${firstCurrencySymbol}`;
@@ -131,10 +125,10 @@
                         resultContainer.appendChild(dataDisplay);
                     })
                     .catch(error => {
-                        alert('Error fetching currency details: ' + error);
+                        displayApiError('Error fetching currency details: ' + error);
                     });
             } else {
-                alert('Currency list is empty.');
+                displayApiError('Currency list is empty.');
             }
         }
 
