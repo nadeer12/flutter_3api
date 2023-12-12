@@ -109,24 +109,33 @@
 
             // Fetch details of the first element in the currency list
             setTimeout(function () {
-                displayCurrencyDetails('http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=[]');
+                fetchCurrencyDetails();
             }, 12000);
         }
 
-        function displayCurrencyDetails(apiUrl) {
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const resultContainer = document.getElementById('currencyDetailsResult');
-                    const dataDisplay = document.createElement('pre');
-                    dataDisplay.textContent = JSON.stringify(data[0], null, 2);
-                    resultContainer.innerHTML = ''; // Clear previous results
-                    resultContainer.appendChild(dataDisplay);
-                })
-                .catch(error => {
-                    displayApiError('Error fetching currency details: ' + error);
-                });
-        }
+function fetchCurrencyDetails() {
+    // Assuming the currency API response has a 'currencies' property containing the list
+    const apiUrl = 'http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=[]';
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const resultContainer = document.getElementById('currencyDetailsResult');
+
+            if (data && data.currencies && data.currencies.length > 0) {
+                const firstCurrencyDetails = data.currencies[0];
+                const dataDisplay = document.createElement('pre');
+                dataDisplay.textContent = JSON.stringify(firstCurrencyDetails, null, 2);
+                resultContainer.innerHTML = ''; // Clear previous results
+                resultContainer.appendChild(dataDisplay);
+            } else {
+                displayApiError('No currency data available.');
+            }
+        })
+        .catch(error => {
+            displayApiError('Error fetching currency details: ' + error);
+        });
+}
 
         function displayApiData(data, apiType) {
             const resultContainer = document.getElementById(apiType + 'Result');
