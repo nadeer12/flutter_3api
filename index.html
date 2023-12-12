@@ -70,12 +70,14 @@
 
     <button onclick="getApiData()">Get Data</button>
     <button onclick="clearResult()">Clear</button>
-
     <div class="data-container">
         <div id="currency">
             <h2>Currency Data</h2>
             <div id="currencyResult"></div>
+            <button onclick="displayFirstCurrency()">Display First Currency</button>
         </div>
+
+
 
         <div id="user">
             <h2>User Data</h2>
@@ -86,6 +88,10 @@
     <div id="item">
         <h2>Item Data</h2>
         <div id="itemResult"></div>
+    </div>
+     <div id="currencyDetails">
+        <h2>Currency Details</h2>
+        <div id="currencyDetailsResult"></div>
     </div>
 
     <script>
@@ -116,6 +122,30 @@
             errorDisplay.textContent = error;
             resultContainer.appendChild(errorDisplay);
         }
+        async function displayFirstCurrency() {
+            const currencyList = window['ApiData_currency'].getData(); // Assuming you have a method to get data from the currency API
+            const currencyDetailsContainer = document.getElementById('currencyDetailsResult');
+
+            if (currencyList.length > 0) {
+                const firstCurrencySymbol = currencyList[0].currencysymbol;
+                const detailsApiUrl = `http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${firstCurrencySymbol}`;
+
+                try {
+                    const response = await fetch(detailsApiUrl);
+                    const currencyDetails = await response.json();
+
+                    const currencyDetailsDisplay = document.createElement('pre');
+                    currencyDetailsDisplay.textContent = JSON.stringify(currencyDetails, null, 2);
+                    currencyDetailsContainer.innerHTML = '';
+                    currencyDetailsContainer.appendChild(currencyDetailsDisplay);
+                } catch (error) {
+                    currencyDetailsContainer.innerHTML = `<p>Error fetching currency details: ${error}</p>`;
+                }
+            } else {
+                currencyDetailsContainer.innerHTML = '<p>No currency data available</p>';
+            }
+        }
+
 
         function clearResult() {
             document.getElementById('currencyResult').innerHTML = '';
