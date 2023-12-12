@@ -23,7 +23,7 @@
             cursor: pointer;
         }
 
-        .result-container {
+        #result {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ccc;
@@ -33,7 +33,6 @@
             margin-left: auto;
             margin-right: auto;
             text-align: left;
-            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -44,9 +43,7 @@
     <button onclick="getApiData()">Get Data</button>
     <button onclick="clearResult()">Clear</button>
 
-    <div id="currencyResult" class="result-container"></div>
-    <div id="userResult" class="result-container"></div>
-    <div id="itemResult" class="result-container"></div>
+    <div id="result"></div>
 
     <script>
         async function getApiData() {
@@ -55,29 +52,29 @@
 
                 const response1 = await fetch('http://eademoapi.linkwayapps.com/api/currency');
                 const data1 = await response1.json();
-                displayApiData(data1, 'currencyResult');
+                displayApiData(data1);
 
                 const response2 = await fetch('http://eademoapi.linkwayapps.com/api/user');
                 const data2 = await response2.json();
-                displayApiData(data2, 'userResult');
+                displayApiData(data2);
 
                 const response3 = await fetch('http://eademoapi.linkwayapps.com/api/item');
                 const data3 = await response3.json();
-                displayApiData(data3, 'itemResult');
+                displayApiData(data3);
             } catch (error) {
                 displayApiError(error.message);
             }
         }
 
-        function displayApiData(data, resultContainerId) {
-            const resultContainer = document.getElementById(resultContainerId);
+        function displayApiData(data) {
+            const resultContainer = document.getElementById('result');
             const dataDisplay = document.createElement('pre');
             dataDisplay.textContent = JSON.stringify(data, null, 2);
             resultContainer.appendChild(dataDisplay);
         }
 
         function displayApiError(error) {
-            const resultContainer = document.getElementById('currencyResult');
+            const resultContainer = document.getElementById('result');
             const errorDisplay = document.createElement('p');
             errorDisplay.textContent = error;
             errorDisplay.style.color = 'red';
@@ -85,13 +82,10 @@
         }
 
         function clearResult() {
-            const resultContainers = document.querySelectorAll('.result-container');
-            resultContainers.forEach(container => {
-                container.innerHTML = '';
-            });
+            const resultContainer = document.getElementById('result');
+            resultContainer.innerHTML = '';
         }
     </script>
 </body>
 
 </html>
-
