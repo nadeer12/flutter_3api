@@ -180,3 +180,60 @@
     </script>
 </body>
 </html>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data Display</title>
+</head>
+<body>
+    <h1>API Data Display</h1>
+
+    <button onclick="getApiData()">Get Datas</button>
+    <button onclick="clearResult()">Clear</button>
+
+    <div id="result"></div>
+
+    <script>
+        function getApiData() {
+            // Call the Flutter function with the API URLs after specific intervals
+            setTimeout(function() {
+                ApiData.postMessage('http://eademoapi.linkwayapps.com/api/currency');
+            }, 3000); // Delay of 1000 milliseconds (1 second)
+
+            setTimeout(function() {
+                ApiData.postMessage('http://eademoapi.linkwayapps.com/api/user');
+            }, 3000); // Delay of 2000 milliseconds (2 seconds)
+
+            setTimeout(function() {
+                ApiData.postMessage('http://eademoapi.linkwayapps.com/api/item');
+            }, 3000); // Delay of 3000 milliseconds (3 seconds)
+        }
+
+        function displayApiData(data) {
+            // Display the received API data
+            const resultContainer = document.getElementById('result');
+            const dataDisplay = document.createElement('pre');
+            dataDisplay.textContent = JSON.stringify(data, null, 2);
+            resultContainer.appendChild(dataDisplay);
+        }
+
+        function displayApiError(error) {
+            // Display the error message
+            const resultContainer = document.getElementById('result');
+            const errorDisplay = document.createElement('p');
+            errorDisplay.textContent = error;
+            resultContainer.appendChild(errorDisplay);
+        }
+
+        function clearResult() {
+            // Clear the result container
+            const resultContainer = document.getElementById('result');
+            resultContainer.innerHTML = '';
+        }
+    </script>
+</body>
+</html>
