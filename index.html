@@ -1,55 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Data Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .result-container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
+
 <body>
     <h1>API Data Display</h1>
 
-    <button onclick="getApiData()">Get Datas</button>
+    <button onclick="getApiData()">Get Data</button>
     <button onclick="clearResult()">Clear</button>
 
-    <div id="result"></div>
+    <div id="currencyResult" class="result-container"></div>
+    <div id="userResult" class="result-container"></div>
+    <div id="itemResult" class="result-container"></div>
 
     <script>
-        function getApiData() {
-            // Call the Flutter function with the API URLs after specific intervals
-            setTimeout(function() {
-                ApiData.postMessage('http://eademoapi.linkwayapps.com/api/currency');
-            }, 3000); // Delay of 1000 milliseconds (1 second)
+        async function getApiData() {
+            try {
+                clearResult();
 
-            setTimeout(function() {
-                ApiData.postMessage('http://eademoapi.linkwayapps.com/api/user');
-            }, 3000); // Delay of 2000 milliseconds (2 seconds)
+                const response1 = await fetch('http://eademoapi.linkwayapps.com/api/currency');
+                const data1 = await response1.json();
+                displayApiData(data1, 'currencyResult');
 
-            setTimeout(function() {
-                ApiData.postMessage('http://eademoapi.linkwayapps.com/api/item');
-            }, 3000); // Delay of 3000 milliseconds (3 seconds)
+                const response2 = await fetch('http://eademoapi.linkwayapps.com/api/user');
+                const data2 = await response2.json();
+                displayApiData(data2, 'userResult');
+
+                const response3 = await fetch('http://eademoapi.linkwayapps.com/api/item');
+                const data3 = await response3.json();
+                displayApiData(data3, 'itemResult');
+            } catch (error) {
+                displayApiError(error.message);
+            }
         }
 
-        function displayApiData(data) {
-            // Display the received API data
-            const resultContainer = document.getElementById('result');
+        function displayApiData(data, resultContainerId) {
+            const resultContainer = document.getElementById(resultContainerId);
             const dataDisplay = document.createElement('pre');
             dataDisplay.textContent = JSON.stringify(data, null, 2);
             resultContainer.appendChild(dataDisplay);
         }
 
         function displayApiError(error) {
-            // Display the error message
-            const resultContainer = document.getElementById('result');
+            const resultContainer = document.getElementById('currencyResult');
             const errorDisplay = document.createElement('p');
             errorDisplay.textContent = error;
+            errorDisplay.style.color = 'red';
             resultContainer.appendChild(errorDisplay);
         }
 
         function clearResult() {
-            // Clear the result container
-            const resultContainer = document.getElementById('result');
-            resultContainer.innerHTML = '';
+            const resultContainers = document.querySelectorAll('.result-container');
+            resultContainers.forEach(container => {
+                container.innerHTML = '';
+            });
         }
     </script>
 </body>
+
 </html>
+
