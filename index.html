@@ -133,14 +133,19 @@
                     }
             }
         }
-        function fetchDataAndShowAlert(currencySymbol) {
-            const apiUrl = `http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${currencySymbol}`;
+    function fetchDataAndShowAlert(currencySymbol) {
+        const apiUrl = `http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${currencySymbol}`;
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => alert(JSON.stringify(data, null, 2)))
-                .catch(error => alert(`Error: ${error.message}`));
-        }
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => alert(JSON.stringify(data, null, 2)))
+            .catch(error => console.error(`Error fetching data: ${error.message}`));
+    }
 
         // Specify the currency symbol and call the function
 
