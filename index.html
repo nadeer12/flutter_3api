@@ -124,7 +124,7 @@
                     // Store the first element of currency data in the variable
                     firstDataCurrency = currencyData[0];
 
-                   const cleanedFirstDataCurrency = firstDataCurrency.replace(/"/g, '');
+                   const cleanedFirstDataCurrency = firstDataCurrency.replace(/"/g, '').toString();
 
                     // Display the cleanedFirstDataCurrency in an alert
                     alert("first data in currency: " +cleanedFirstDataCurrency);
