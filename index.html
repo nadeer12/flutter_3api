@@ -122,10 +122,10 @@
                    // const cleanedFirstDataCurrency = firstDataCurrency.replace(/"/g, '');
 
             // Display the cleanedFirstDataCurrency in an alert
-            alert("Modified firstDataCurrency: " + FirstDataCurrency);
+            alert("Modified firstDataCurrency: " + firstDataCurrency);
 
             // Fetch additional data using the cleanedFirstDataCurrency
-             fetch(`http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${FirstDataCurrency}`)
+             fetch(`http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${firstDataCurrency}`)
                 .then(response => response.json())
                 .then(apiData => {
                     // Display the additional API data in an alert
