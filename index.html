@@ -146,14 +146,20 @@
             document.getElementById('itemResult').innerHTML = '';
         }
 
-        function fetchDataAndShowAlert() {
-            const apiUrl = `http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=omr`;
+    function fetchDataAndShowAlert() {
+        const apiUrl = 'http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=omr';
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => alert(JSON.stringify(data, null, 2)))
-                .catch(error => alert(`Error: ${error.message}`));
-        }
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok, status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => alert(JSON.stringify(data, null, 2)))
+            .catch(error => alert(`Error: ${error.message}`));
+    }
+
 
     </script>
 </body>
