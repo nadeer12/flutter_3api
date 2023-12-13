@@ -70,8 +70,7 @@
 
     <button onclick="getApiData()">Get Data</button>
     <button onclick="clearResult()">Clear</button>
-    <button onclick="fetchDataAndShowAlert()">Fetch first</button>
-
+    
     <div class="data-container">
         <div id="currency">
             <h2>Currency Data</h2>
@@ -122,12 +121,12 @@
                 // Check if currencyData has elements
                 if (currencyData.length > 0) {
                     // Store the first element of currency data in the variable
-                    firstDataCurrency = currencyData[1];
+                    firstDataCurrency = currencyData[0];
 
                    const cleanedFirstDataCurrency = encodeURIComponent(firstDataCurrency.replace(/"/g, ''));
 
                     // Display the cleanedFirstDataCurrency in an alert
-                    alert("first data in currency: " +cleanedFirstDataCurrency);
+                    // alert("first data in currency: " +cleanedFirstDataCurrency);
                     const apiUrl = 'https://maraidemoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=' + cleanedFirstDataCurrency;
                     fetch(apiUrl)
                         .then(response => {
@@ -161,21 +160,6 @@
             document.getElementById('userResult').innerHTML = '';
             document.getElementById('itemResult').innerHTML = '';
         }
-
-    function fetchDataAndShowAlert() {
-        const apiUrl = 'https://maraidemoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol='+cleanedFirstDataCurrency;
-
-        fetch(apiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Network response was not ok, status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => alert(JSON.stringify(data, null, 2)))
-            .catch(error => alert(`Error: ${error.message}`));
-    }
-
 
     </script>
 </body>
