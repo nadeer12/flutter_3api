@@ -124,22 +124,23 @@
             // Display the cleanedFirstDataCurrency in an alert
             alert("Modified firstDataCurrency: " + firstDataCurrency);
 
-            // Fetch additional data using the cleanedFirstDataCurrency
-             fetch(`http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=omr`)
-                .then(response => response.json())
-                .then(apiData => {
-                    // Display the additional API data in an alert
-                    alert("Additional API Data: " + JSON.stringify(apiData, null, 2));
-                })
-                .catch(error => {
-                    // Handle errors from the additional fetch request
-                    alert(`Error fetching additional data: ${error.message}`);
-                });
-
 
                     }
             }
         }
+        function fetchDataAndShowAlert(currencySymbol) {
+            const apiUrl = `http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${currencySymbol}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => alert(JSON.stringify(data, null, 2)))
+                .catch(error => alert(`Error: ${error.message}`));
+        }
+
+        // Specify the currency symbol and call the function
+        const currencySymbol = "omr";
+        fetchDataAndShowAlert(currencySymbol);
+        
 
         function displayApiError(error) {
             const resultContainer = document.getElementById('result');
