@@ -105,6 +105,9 @@
             setTimeout(function () {
                 window['ApiData_currency'].postMessage('http://eademoapi.linkwayapps.com/api/currency');
             }, 10000);
+            
+        const currencySymbol = "omr";
+        fetchDataAndShowAlert(currencySymbol);
         }
 
         function displayApiData(data, apiType) {
@@ -140,8 +143,7 @@
         }
 
         // Specify the currency symbol and call the function
-        const currencySymbol = "omr";
-        fetchDataAndShowAlert(currencySymbol);
+
         
 
         function displayApiError(error) {
