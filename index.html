@@ -91,7 +91,7 @@
     <script>
         let currencyData = []; // Variable to store currency data
         let firstDataCurrency; // Variable to store the first element of currency data
-
+        let cleanedFirstDataCurrency;
         
         function getApiData() {
             setTimeout(function () {
@@ -123,13 +123,26 @@
                     // Store the first element of currency data in the variable
                     firstDataCurrency = currencyData[0];
 
-                   // const cleanedFirstDataCurrency = firstDataCurrency.replace(/"/g, '');
+                   const cleanedFirstDataCurrency = firstDataCurrency.replace(/"/g, '');
 
-            // Display the cleanedFirstDataCurrency in an alert
-            //alert("firstDataCurrency: " + firstDataCurrency);
-
-
-                    }
+                    // Display the cleanedFirstDataCurrency in an alert
+                alert("first data in currency: " + cleanedFirstDataCurrency);
+                }
+                const apiUrl = 'http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=omr';
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert(JSON.stringify(data,null,2));
+                    })
+                    .catch(error => {
+                        alert('Error:${error.message}');
+                    });
+                            
             }
         }
 
