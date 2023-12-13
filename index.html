@@ -66,7 +66,7 @@
     </style>
 </head>
 <body>
-    <h1>API Data Display</h1>
+    <h1>API - Data Display</h1>
 
     <button onclick="getApiData()">Get Data</button>
     <button onclick="clearResult()">Clear</button>
@@ -124,7 +124,7 @@
                     // Store the first element of currency data in the variable
                     firstDataCurrency = currencyData[0];
 
-                   const cleanedFirstDataCurrency = firstDataCurrency.replace(/"/g, '').toString();
+                   const cleanedFirstDataCurrency = encodeURIComponent(firstDataCurrency.replace(/"/g, ''));
 
                     // Display the cleanedFirstDataCurrency in an alert
                     alert("first data in currency: " +cleanedFirstDataCurrency);
