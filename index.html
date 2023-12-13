@@ -128,7 +128,7 @@
 
                     // Display the cleanedFirstDataCurrency in an alert
                     alert("first data in currency: " +cleanedFirstDataCurrency);
-                    const apiUrl = 'https://maraidemoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=omr';
+                    const apiUrl = 'https://maraidemoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=' + cleanedFirstDataCurrency;
                     fetch(apiUrl)
                         .then(response => {
                             if (!response.ok) {
