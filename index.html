@@ -124,7 +124,7 @@
 
                     // Display currency data in an alert
                     alert('First Data of Currency:\n' + firstDataCurrency);
-                    fetch(`http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${encodeURIComponent(firstDataCurrency)}`)
+                    fetch(`http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${firstDataCurrency}`)
                         .then(response => {
                             if (response.status === 200) {
                                 return response.json();
