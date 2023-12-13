@@ -163,7 +163,7 @@
         }
 
     function fetchDataAndShowAlert() {
-        const apiUrl = 'https://maraidemoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=omr';
+        const apiUrl = 'https://maraidemoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol='+cleanedFirstDataCurrency;
 
         fetch(apiUrl)
             .then(response => {
