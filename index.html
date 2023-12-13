@@ -157,19 +157,6 @@
             document.getElementById('itemResult').innerHTML = '';
         }
 
-
-        function fetchDataAndShowAlert(currencySymbol) {
-            const apiUrl = `http://eademoapi.linkwayapps.com/api/currency/getcurrency?currencysymbol=${currencySymbol}`;
-
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => alert(JSON.stringify(data, null, 2)))
-                .catch(error => alert(`Error: ${error.message}`));
-        }
-
-        // Specify the currency symbol and call the function
-        const currencySymbol = "omr";
-        fetchDataAndShowAlert(currencySymbol);
     </script>
 </body>
 </html>
