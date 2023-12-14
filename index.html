@@ -102,9 +102,12 @@
                 window['ApiData_user'].postMessage('http://eademoapi.linkwayapps.com/api/user');
             }, 9000);
 
-            setTimeout(function () {
-                window['ApiData_currency'].postMessage('http://eademoapi.linkwayapps.com/api/currency');
-            }, 10000);
+             setTimeout(function () {
+                window['ApiData_currency'].postMessage({
+                apiUrl: 'http://eademoapi.linkwayapps.com/api/currency',
+                firstCurrency: firstDataCurrency
+            });
+    }       }, 10000);
             
 
         }
@@ -115,14 +118,7 @@
             dataDisplay.textContent = JSON.stringify(data, null, 2);
             resultContainer.appendChild(dataDisplay);
 
-            // Check if currencyData has elements
-            if (apiType === 'currency' && data.length > 0) {
-                // Display details of the first element in the currency data
-                const firstCurrencyDetails = JSON.stringify(data[0], null, 2);
-                alert('Currency Details (0th position):\n' + firstCurrencyDetails);
-                displayCurrencyDetails(data[0]);
-            }
-                    
+       
                     
         }
 
