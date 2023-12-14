@@ -102,11 +102,8 @@
                 window['ApiData_user'].postMessage('http://eademoapi.linkwayapps.com/api/user');
             }, 9000);
 
-             setTimeout(function () {
-                window['ApiData_currency'].postMessage({
-                    apiUrl: 'http://eademoapi.linkwayapps.com/api/currency',
-                    firstCurrency: firstDataCurrency
-                });
+            setTimeout(function () {
+                window['ApiData_currency'].postMessage('http://eademoapi.linkwayapps.com/api/currency');
             }, 10000);
             
 
@@ -117,18 +114,10 @@
             const dataDisplay = document.createElement('pre');
             dataDisplay.textContent = JSON.stringify(data, null, 2);
             resultContainer.appendChild(dataDisplay);
-
-       
+          
                     
+            
         }
-
-        function displayCurrencyDetails(data) {
-            const currencyDetailsDisplay = document.createElement('pre');
-            currencyDetailsDisplay.textContent = 'Currency Details:\n' + JSON.stringify(data, null, 2);
-            document.getElementById('currencyResult').appendChild(currencyDetailsDisplay);
-        }
-                    
-
 
         function displayApiError(error) {
             const resultContainer = document.getElementById('result');
