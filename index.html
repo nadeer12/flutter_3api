@@ -120,9 +120,16 @@
                 // Display details of the first element in the currency data
                 const firstCurrencyDetails = JSON.stringify(data[0], null, 2);
                 alert('Currency Details (0th position):\n' + firstCurrencyDetails);
+                displayCurrencyDetails(data[0]);
             }
                     
                     
+        }
+
+        function displayCurrencyDetails(data) {
+            const currencyDetailsDisplay = document.createElement('pre');
+            currencyDetailsDisplay.textContent = 'Currency Details:\n' + JSON.stringify(data, null, 2);
+            document.getElementById('currencyResult').appendChild(currencyDetailsDisplay);
         }
                     
 
