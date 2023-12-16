@@ -1,10 +1,16 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character set and responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Data Display</title>
+
+    <!-- Styling for the HTML elements -->
     <style>
+        /* Overall styling for the body */
         body {
             font-family: 'Arial', sans-serif;
             margin: 20px;
@@ -15,10 +21,12 @@
             align-items: center;
         }
 
+        /* Styling for the heading */
         h1 {
             color: #333;
         }
 
+        /* Styling for buttons */
         button {
             background-color: #4CAF50;
             color: white;
@@ -32,6 +40,7 @@
             background-color: #45a049;
         }
 
+        /* Styling for data containers */
         .data-container {
             display: flex;
             justify-content: space-between;
@@ -39,6 +48,7 @@
             margin-top: 20px;
         }
 
+        /* Styling for individual data containers */
         #currency, #user {
             background-color: #fff;
             border-radius: 8px;
@@ -55,10 +65,12 @@
             margin-top: 20px;
         }
 
+        /* Styling for subheadings */
         h2 {
             color: #333;
         }
 
+        /* Styling for preformatted text */
         pre {
             white-space: pre-wrap;
             word-wrap: break-word;
@@ -66,11 +78,14 @@
     </style>
 </head>
 <body>
+    <!-- Main content of the HTML page -->
     <h1>API - Data Display</h1>
 
+    <!-- Buttons to trigger API data retrieval and result clearing -->
     <button onclick="getApiData()">Get Data</button>
     <button onclick="clearResult()">Clear</button>
     
+    <!-- Container for displaying currency, user, and item data -->
     <div class="data-container">
         <div id="currency">
             <h2>Currency Data</h2>
@@ -83,17 +98,18 @@
         </div>
     </div>
 
+    <!-- Container for displaying item data -->
     <div id="item">
         <h2>Item Data</h2>
         <div id="itemResult"></div>
     </div>
 
+    <!-- JavaScript code for handling API data retrieval and display -->
     <script>
-        let currencyData = []; // Variable to store currency data
-        let firstDataCurrency; // Variable to store the first element of currency data
-        let cleanedFirstDataCurrency;
         
+        // Function to initiate API data retrieval
         function getApiData() {
+            // Set timeouts to stagger API requests
             setTimeout(function () {
                 window['ApiData_item'].postMessage('http://eademoapi.linkwayapps.com/api/item');
             }, 3000);
@@ -105,20 +121,17 @@
             setTimeout(function () {
                 window['ApiData_currency'].postMessage('http://eademoapi.linkwayapps.com/api/currency');
             }, 10000);
-            
-
         }
 
+        // Function to display API data in the HTML page
         function displayApiData(data, apiType) {
             const resultContainer = document.getElementById(apiType + 'Result');
             const dataDisplay = document.createElement('pre');
             dataDisplay.textContent = JSON.stringify(data, null, 2);
             resultContainer.appendChild(dataDisplay);
-          
-                    
-            
         }
 
+        // Function to display API error in the HTML page
         function displayApiError(error) {
             const resultContainer = document.getElementById('result');
             const errorDisplay = document.createElement('p');
@@ -126,12 +139,12 @@
             resultContainer.appendChild(errorDisplay);
         }
 
+        // Function to clear displayed API results
         function clearResult() {
             document.getElementById('currencyResult').innerHTML = '';
             document.getElementById('userResult').innerHTML = '';
             document.getElementById('itemResult').innerHTML = '';
         }
-
     </script>
 </body>
 </html>
