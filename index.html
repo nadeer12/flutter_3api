@@ -131,9 +131,10 @@
             dataDisplay.textContent = JSON.stringify(data, null, 2);
             resultContainer.appendChild(dataDisplay);
 
-            if (apiType === 'currency' && data2) {
-                 alert('Data2 from HTML: ' + JSON.stringify(data2, null, 2));
-            }
+    
+        }
+        function displayData2Alert(data2) {
+            alert('Data2: ' + JSON.stringify(data2, null, 2));
         }
 
         // Function to display API error in the HTML page
