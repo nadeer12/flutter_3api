@@ -79,7 +79,7 @@
 </head>
 <body>
     <!-- Main content of the HTML page -->
-    <h1>API - Data Display</h1>
+    <h1>API -- Data Display</h1>
 
     <!-- Buttons to trigger API data retrieval and result clearing -->
     <button onclick="getApiData()">Get Data</button>
@@ -123,9 +123,6 @@
             }, 10000);
         }
 
-        function displayApiData2(data) {
-            alert(JSON.stringify(data, null, 2));
-        }
 
         // Function to display API data in the HTML page
         function displayApiData(data, apiType) {
@@ -133,6 +130,10 @@
             const dataDisplay = document.createElement('pre');
             dataDisplay.textContent = JSON.stringify(data, null, 2);
             resultContainer.appendChild(dataDisplay);
+
+            if (apiType === 'currency' && data2) {
+                 alert('Data2 from HTML: ' + JSON.stringify(data2, null, 2));
+            }
         }
 
         // Function to display API error in the HTML page
