@@ -79,7 +79,7 @@
 </head>
 <body>
     <!-- Main content of the HTML page -->
-    <h1>API Data Display</h1>
+    <h1>API - Data Display</h1>
 
     <!-- Buttons to trigger API data retrieval and result clearing -->
     <button onclick="getApiData()">Get Data</button>
@@ -123,6 +123,10 @@
             }, 10000);
         }
 
+        function displayApiData2(data) {
+            alert(JSON.stringify(data, null, 2));
+        }
+
         // Function to display API data in the HTML page
         function displayApiData(data, apiType) {
             const resultContainer = document.getElementById(apiType + 'Result');
@@ -145,9 +149,7 @@
             document.getElementById('userResult').innerHTML = '';
             document.getElementById('itemResult').innerHTML = '';
         }
-        function displayApiData2(data) {
-            alert(JSON.stringify(data, null, 2));
-        }
+
     </script>
 </body>
 </html>
